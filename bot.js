@@ -23,12 +23,10 @@ bot.on('interactionCreate', async (interaction) => {
     if (!interaction.isCommand()) return;
 
     const command = bot.commands.get(interaction.commandName);
-    // console.log("Debug command: ", command);
 
     if (!command) return;
 
     try {
-        // console.log("Debug param: ", interaction.options.getString('theme'));
         await command.execute(interaction);
     } catch (error) {
         console.error(error);
