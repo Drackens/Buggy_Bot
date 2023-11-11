@@ -36,5 +36,3 @@ bot.on('interactionCreate', async (interaction) => {
 
 bot.login(TOKEN);
 
-// Next step, connecter l'api de shodan
-
