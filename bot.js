@@ -1,11 +1,14 @@
 const fs = require('fs');
-const { Client, Collection, Intents } = require('discord.js');
+const { Client, Collection, GatewayIntentBits, Partials } = require('discord.js');
 require('dotenv').config();
 
 const TOKEN = process.env.DISCORD_TOKEN;
-console.log("Using Discord TOKEN: ", TOKEN)
+console.log("Using Discord TOKEN: ", TOKEN);
 
-const bot = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
+const bot = new Client({
+    intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages],
+    partials: [Partials.Channel]
+});
 
 bot.commands = new Collection();
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
@@ -16,7 +19,7 @@ for (const file of commandFiles) {
 }
 
 bot.once('ready', () => {
-    console.log('Bot is ready!');
+    console.log('My Boty is ready!');
 });
 
 bot.on('interactionCreate', async (interaction) => {
@@ -25,14 +28,12 @@ bot.on('interactionCreate', async (interaction) => {
     const command = bot.commands.get(interaction.commandName);
 
     if (!command) return;
-
     try {
         await command.execute(interaction);
     } catch (error) {
         console.error(error);
-        await interaction.reply({ content: 'Erreur lors de la récupération du GIF ', ephemeral: true });
+        await interaction.reply({ content: 'Une erreur est survenue... Analyse en cours...', ephemeral: true });
     }
 });
 
 bot.login(TOKEN);
-
