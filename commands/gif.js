@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { EmbedBuilder } = require('discord.js'); // Modification ici
+const { EmbedBuilder } = require('discord.js');
 const fetch = require('node-fetch');
 
 const giphyToken = process.env.GIPHY_TOKEN;
@@ -24,7 +24,7 @@ module.exports = {
                 return interaction.reply('Aucun GIF trouvé pour ce thème.');
             }
 
-            const embed = new EmbedBuilder().setImage(json.data.images.original.url); // Modification ici
+            const embed = new EmbedBuilder().setImage(json.data.images.original.url);
             await interaction.reply({ embeds: [embed] });
         } catch (error) {
             console.error('Erreur lors de la recherche du GIF:', error);

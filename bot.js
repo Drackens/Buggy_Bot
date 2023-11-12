@@ -32,7 +32,7 @@ bot.on('interactionCreate', async (interaction) => {
         await command.execute(interaction);
     } catch (error) {
         console.error(error);
-        await interaction.reply({ content: 'Erreur lors de la récupération du GIF ', ephemeral: true });
+        await interaction.reply({ content: 'Une erreur est survenue... Analyse en cours...', ephemeral: true });
     }
 });
 
